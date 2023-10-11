@@ -17,12 +17,18 @@
 
 package com.moriafly.salt.kit
 
-import android.os.Handler
-import android.os.Looper
+import android.graphics.Bitmap
 
 /**
- * Run on main thread
+ * Cut bitmap into a square, and take only the middle part of a rectangular bitmap
  */
-fun runOnMainThread(runnable: Runnable) {
-    Handler(Looper.getMainLooper()).post(runnable)
+fun Bitmap.toSquare(): Bitmap {
+    if (width == height) {
+        return this
+    }
+    // min of width and height
+    val clipWidth = width.coerceAtMost(height)
+    val x = (width - clipWidth) / 2
+    val y = (height - clipWidth) / 2
+    return Bitmap.createBitmap(this, x, y, clipWidth, clipWidth)
 }
