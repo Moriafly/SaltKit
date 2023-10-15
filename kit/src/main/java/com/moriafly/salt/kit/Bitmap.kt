@@ -39,12 +39,15 @@ fun Bitmap.centerCrop(
     width: Int,
     height: Int
 ): Bitmap {
+    // clip
     val scaleX = width.toFloat() / this.width
     val scaleY = height.toFloat() / this.height
     val scaleFactor = if (scaleX > scaleY) scaleX else scaleY
     val scaledWidth = (this.width * scaleFactor).toInt()
     val scaledHeight = (this.height * scaleFactor).toInt()
+    // scale
+    val scaledBitmap = Bitmap.createScaledBitmap(this, scaledWidth, scaledHeight, true)
     val x = (scaledWidth - width) / 2
     val y = (scaledHeight - height) / 2
-    return Bitmap.createBitmap(this, x, y, width, height)
+    return Bitmap.createBitmap(scaledBitmap, x, y, width, height)
 }
