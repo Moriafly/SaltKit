@@ -2,7 +2,10 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    `maven-publish`
 }
+
+val libraryVersionName = "0.1.0-dev01"
 
 android {
     namespace = "com.moriafly.salt.kit"
@@ -31,11 +34,24 @@ android {
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.github.Moriafly"
+                artifactId = "SaltUI"
+                version = libraryVersionName
+
+                from(components["release"])
+            }
+        }
+    }
 }
