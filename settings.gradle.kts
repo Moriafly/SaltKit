@@ -14,5 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SaltKit"
-include(":app")
 include(":kit")
