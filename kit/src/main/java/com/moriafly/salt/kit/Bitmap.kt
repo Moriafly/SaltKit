@@ -26,9 +26,25 @@ fun Bitmap.toSquare(): Bitmap {
     if (width == height) {
         return this
     }
-    // min of width and height
-    val clipWidth = width.coerceAtMost(height)
+    val clipWidth = if (width > height) height else width
     val x = (width - clipWidth) / 2
     val y = (height - clipWidth) / 2
     return Bitmap.createBitmap(this, x, y, clipWidth, clipWidth)
+}
+
+/**
+ * Center crop bitmap
+ */
+fun Bitmap.centerCrop(
+    width: Int,
+    height: Int
+): Bitmap {
+    val scaleX = width.toFloat() / this.width
+    val scaleY = height.toFloat() / this.height
+    val scaleFactor = if (scaleX > scaleY) scaleX else scaleY
+    val scaledWidth = (this.width * scaleFactor).toInt()
+    val scaledHeight = (this.height * scaleFactor).toInt()
+    val x = (scaledWidth - width) / 2
+    val y = (scaledHeight - height) / 2
+    return Bitmap.createBitmap(this, x, y, width, height)
 }
