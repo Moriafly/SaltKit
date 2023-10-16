@@ -38,16 +38,34 @@ fun Bitmap.toSquare(): Bitmap {
 fun Bitmap.centerCrop(
     width: Int,
     height: Int
-): Bitmap {
-    // clip
-    val scaleX = width.toFloat() / this.width
-    val scaleY = height.toFloat() / this.height
+): Bitmap? {
+    if (width <= 0 || height <= 0) return null
+
+    val sourceWidth = this.width
+    val sourceHeight = this.height
+
+    if (sourceWidth <= 0 || sourceHeight <= 0) return null
+
+    val scaleX = width.toFloat() / sourceWidth
+    val scaleY = height.toFloat() / sourceHeight
     val scaleFactor = if (scaleX > scaleY) scaleX else scaleY
-    val scaledWidth = (this.width * scaleFactor).toInt()
-    val scaledHeight = (this.height * scaleFactor).toInt()
-    // scale
-    val scaledBitmap = Bitmap.createScaledBitmap(this, scaledWidth, scaledHeight, true)
+    val scaledWidth = (sourceWidth * scaleFactor).toInt()
+    val scaledHeight = (sourceHeight * scaleFactor).toInt()
+
     val x = (scaledWidth - width) / 2
     val y = (scaledHeight - height) / 2
+
+    if (x + width > scaledWidth) {
+        // 裁剪的范围超出了源位图的宽度
+        return null
+    }
+
+    if (y + height > scaledHeight) {
+        // 裁剪的范围超出了源位图的高度
+        return null
+    }
+
+    val scaledBitmap = Bitmap.createScaledBitmap(this, scaledWidth, scaledHeight, true)
+
     return Bitmap.createBitmap(scaledBitmap, x, y, width, height)
 }
