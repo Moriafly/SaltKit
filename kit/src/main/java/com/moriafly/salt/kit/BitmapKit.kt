@@ -41,6 +41,7 @@ object BitmapKit {
         val bitmap = Bitmap.createBitmap(width, height, config)
         val canvas = Canvas(bitmap)
         canvas.drawColor(color)
+        canvas.setBitmap(null)
         return bitmap
     }
 
@@ -85,6 +86,7 @@ object BitmapKit {
     /**
      * Cut bitmap into a square, and take only the middle part of a rectangular bitmap
      */
+    @UnstableSaltKitApi
     fun square(bitmap: Bitmap): Bitmap {
         val width = bitmap.width
         val height = bitmap.height
@@ -102,4 +104,5 @@ object BitmapKit {
 @UnstableSaltKitApi
 fun Bitmap.centerCrop(width: Int, height: Int): Bitmap = BitmapKit.centerCrop(this, width, height)
 
+@UnstableSaltKitApi
 fun Bitmap.toSquare(): Bitmap = BitmapKit.square(this)
