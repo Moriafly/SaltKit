@@ -5,6 +5,12 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="useAppContext()">
+        <State />
+      </entry>
+      <entry key="useAppContext() (1)">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
