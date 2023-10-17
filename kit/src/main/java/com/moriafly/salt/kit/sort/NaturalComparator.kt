@@ -40,7 +40,11 @@ package com.moriafly.salt.kit.sort
 object NaturalComparator : AbstractNaturalComparator(), Comparator<CharSequence> {
 
     override fun compareChars(c1: Char, c2: Char): Int {
-        return c1.code - c2.code
+        return when {
+            c1.isLetter() && c2.isLetter() -> c1.code - c2.code
+            c1.isLetter() && !c2.isLetter() -> -1
+            else -> 1
+        }
     }
 
 }

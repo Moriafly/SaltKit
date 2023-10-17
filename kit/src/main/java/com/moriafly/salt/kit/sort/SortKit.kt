@@ -24,7 +24,7 @@ object SortKit {
     /**
      * Sort chars by natural, implemented sorting of numbers in strings
      *
-     * @param comparator Custom non numeric comparison
+     * @param comparator Custom not digit
      */
     @UnstableSaltKitApi
     inline fun <T> sortedByNatural(

@@ -31,8 +31,8 @@ abstract class AbstractNaturalComparator: Comparator<CharSequence> {
         while (idx1 < len1 && idx2 < len2) {
             val c1 = o1[idx1++]
             val c2 = o2[idx2++]
-            val isDigit1 = isDigit(c1)
-            val isDigit2 = isDigit(c2)
+            val isDigit1 = c1.isDigit()
+            val isDigit2 = c2.isDigit()
 
             when {
                 isDigit1 && !isDigit2 -> return -1
@@ -41,7 +41,7 @@ abstract class AbstractNaturalComparator: Comparator<CharSequence> {
                     var num1 = parse(c1)
                     while (idx1 < len1) {
                         val digit = o1[idx1++]
-                        num1 = if (isDigit(digit)) {
+                        num1 = if (digit.isDigit()) {
                             num1 * 10 + parse(digit)
                         } else {
                             idx1--
@@ -51,7 +51,7 @@ abstract class AbstractNaturalComparator: Comparator<CharSequence> {
                     var num2 = parse(c2)
                     while (idx2 < len2) {
                         val digit = o2[idx2++]
-                        num2 = if (isDigit(digit)) {
+                        num2 = if (digit.isDigit()) {
                             num2 * 10 + parse(digit)
                         } else {
                             idx2--
@@ -79,6 +79,9 @@ abstract class AbstractNaturalComparator: Comparator<CharSequence> {
         }
     }
 
+    /**
+     * Compare with not digit char
+     */
     abstract fun compareChars(c1: Char, c2: Char): Int
 
     private fun compareUnsigned(num1: Long, num2: Long): Int {
@@ -91,10 +94,6 @@ abstract class AbstractNaturalComparator: Comparator<CharSequence> {
 
     private fun parse(c: Char): Long {
         return (c.code - '0'.code).toLong()
-    }
-
-    private fun isDigit(c: Char): Boolean {
-        return c in '0'..'9'
     }
 
 }
