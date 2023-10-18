@@ -29,10 +29,15 @@ class SortKitUnitTest {
             "【完善",
             "_您好",
             "As",
+            "?a",
+            "?",
             ".",
             "0",
             "9",
-            "Z"
+            "Z",
+            "w",
+            "123",
+            "{"
         )
         val sorted = SortKit.sortedByNatural(list) {
             it

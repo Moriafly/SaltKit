@@ -43,7 +43,8 @@ object NaturalComparator : AbstractNaturalComparator(), Comparator<CharSequence>
         return when {
             c1.isLetter() && c2.isLetter() -> c1.code - c2.code
             c1.isLetter() && !c2.isLetter() -> -1
-            else -> 1
+            !c1.isLetter() && c2.isLetter() -> 1
+            else -> c1.code - c2.code
         }
     }
 
